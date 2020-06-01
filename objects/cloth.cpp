@@ -1,7 +1,7 @@
 #include "cloth.h"
 #include <iostream>
 
-Cloth::Cloth()
+cloth::Cloth()
     : numRows(0),
       numCols(0),
       vertexCount(0),
@@ -22,19 +22,19 @@ Cloth::Cloth()
       bitangents(0),
       force(0) {}
 
-UINT Cloth::RowCount() const { return numRows; }
+UINT cloth::RowCount() const { return numRows; }
 
-UINT Cloth::ColumnCount() const { return numCols; }
+UINT cloth::ColumnCount() const { return numCols; }
 
-UINT Cloth::VertexCount() const { return vertexCount; }
+UINT cloth::VertexCount() const { return vertexCount; }
 
-UINT Cloth::TriangleCount() const { return triangleCount; }
+UINT cloth::TriangleCount() const { return triangleCount; }
 
-float Cloth::Width() const { return numCols * dx; }
+float cloth::Width() const { return numCols * dx; }
 
-float Cloth::Depth() const { return numRows * dx; }
+float cloth::Depth() const { return numRows * dx; }
 
-void Cloth::Init(UINT m, UINT n, float ddx, float ddt, float spring1,
+void cloth::Init(UINT m, UINT n, float ddx, float ddt, float spring1,
                  float spring2, float damp1, float damp2, float M) {
     mass = M;
     numRows = m;
@@ -82,7 +82,7 @@ void Cloth::Init(UINT m, UINT n, float ddx, float ddt, float spring1,
     }
 }
 
-void Cloth::Update(float ddt, float windX, float windY, float windZ) {
+void cloth::Update(float ddt, float windX, float windY, float windZ) {
     static float t = 0;
     t += ddt;
     UINT n = numCols;

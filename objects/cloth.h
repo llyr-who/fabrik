@@ -1,14 +1,10 @@
 #pragma once
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glx.h>
-#include <X11/X.h>
-#include <X11/Xlib.h>
 #include <math.h>
 #include <vector>
-#include "antmath.h"
 
-class Cloth {
+#include "georhiau/core/vertex.hpp"
+
+class cloth {
 private:
     UINT numRows;
     UINT numCols;
@@ -38,7 +34,7 @@ private:
     AV3FLOAT* force;
 
 public:
-    Cloth();
+    cloth();
     UINT RowCount() const;
     UINT ColumnCount() const;
     UINT TriangleCount() const;

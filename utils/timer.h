@@ -1,3 +1,4 @@
+#pragma once
 #include<time.h>
 
 typedef unsigned int UINT;
