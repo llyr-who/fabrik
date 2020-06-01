@@ -1,7 +1,7 @@
 all: GLnixDEMO2
 
 #For debugging
-OPT=-g -Wall
+OPT=-g -Wall -mfma -mavx2
 LDFLAGS=-lm -lX11 -lGL -lGLU -lXext -lXrender
 OBJECTS=GLnixAPP.o myextloader.h GeometryGen.o MathHelper.o cloth.o antmath.o Timer.o
 		
