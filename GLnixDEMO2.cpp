@@ -155,14 +155,10 @@ void GLnixDEMO::RedrawTheWindow() {
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-    glCullFace(GL_BACK);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(viewModelMatrix.m);
     glColor4f(0.1, 0.2, 0.8, 1);
-    GLnix_glBindVertexArray(VAOcloth);
-    glDrawElements(GL_TRIANGLES, 3 * cloth.TriangleCount(), GL_UNSIGNED_INT, 0);
-    glCullFace(GL_FRONT);
     GLnix_glBindVertexArray(VAOcloth);
     glDrawElements(GL_TRIANGLES, 3 * cloth.TriangleCount(), GL_UNSIGNED_INT, 0);
     glXSwapBuffers(Xdisplay, glX_window_handle);
