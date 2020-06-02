@@ -7,5 +7,3 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(solvant)
-
-message(STATUS ${solvant_SOURCE_DIR})
