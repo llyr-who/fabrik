@@ -2,21 +2,10 @@ cmake_minimum_required(VERSION 3.10)
 project(fabrik VERSION 1.0 LANGUAGES CXX)
 
 find_package(OpenGL REQUIRED)
-find_package(X11 REQUIRED)
+find_package(glfw 3.0 REQUIRED)
 
-set(SOURCES 
- antmath.cpp
- cloth.cpp
- GeometryGen.cpp
- GLnixAPP.cpp
- GLnixDEMO2.cpp
- MathHelper.cpp
- Timer.cpp )
+include(cmake/FetchSolvant.cmake)
 
-add_library(fabrik_lib ${SOURCES})
-add_executable(fabrik_run GLnixDEMO2.cpp)
-target_link_libraries(fabrik_run PRIVATE fabrik_lib 
-                                 ${OPENGL_LIBRARIES} 
-                                 ${X11_LIBRARIES}
-                                 ${X11_Xrender_LIB})
-
+#add_subdirectory(geo)
+add_subdirectory(phys)
+#add_subdirectory(utils)
