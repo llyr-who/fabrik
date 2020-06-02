@@ -1,11 +1,11 @@
-include(ExternalProject)
+include(FetchContent)
 
-ExternalProject_Add(
+FetchContent_Declare(
   solvant
-  GIT_REPOSITORY https://github.com/llyr-who/solvant
-  GIT_TAG origin/master 
-  )
+  GIT_REPOSITORY https://github.com/llyr-who/solvant.git
+  GIT_TAG        master
+)
 
-ExternalProject_Get_Property(solvant install_dir)
+FetchContent_MakeAvailable(solvant)
 
-include_directories(${install_dir}/src/solvant)
+message(STATUS ${solvant_SOURCE_DIR})

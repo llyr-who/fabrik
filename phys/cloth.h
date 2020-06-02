@@ -2,7 +2,7 @@
 #include <math.h>
 #include <vector>
 
-#include "georhiau/core/vertex.hpp"
+#include "solvant/core/vector.hpp"
 
 class cloth {
 private:
