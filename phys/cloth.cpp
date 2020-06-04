@@ -1,5 +1,5 @@
 #include "cloth.h"
-#include <iostream>
+#include <boost/math/constants/constants.hpp>
 
 cloth::cloth()
     : numRows(0),
@@ -74,10 +74,10 @@ void cloth::Init(UINT m, UINT n, float ddx, float ddt, float spring1,
         for (UINT j = 0; j < n; ++j) {
             float x = -halfWidth + j * dx;
 
-            prevPos[i * n + j] = solvant::vector<float,3>(x, 0.1 * sin(x * z), z);
-            currPos[i * n + j] = solvant::vector<float,3>(x, 0.1 * sin(x * z), z);
-            velocity[i * n + j] = solvant::vector<float,3>(0, 0, 0);
-            normals[i * n + j] = solvant::vector<float,3>(0, 1, 0);
+            prevPos[i * n + j] = solvant::vector<float,3>(x, 0.1f * std::sin(x * z), z);
+            currPos[i * n + j] = solvant::vector<float,3>(x, 0.1f * std::sin(x * z), z);
+            velocity[i * n + j] = solvant::vector<float,3>(0.0f, 0.0f, 0.0f);
+            normals[i * n + j] = solvant::vector<float,3>(0.0f, 1.0f, 0.0f);
         }
     }
 }
@@ -487,7 +487,7 @@ void cloth::Update(float ddt, float windX, float windY, float windZ) {
                     currPos[j * n + i + 1][2] - currPos[j * n + i][2];
                 bitangents[j * n + i].normalize();
 
-                crossProduct3(bitangents[j * n + i], tangents[j * n + i],
+                cross_product3(bitangents[j * n + i], tangents[j * n + i],
                               normals[j * n + i]);
             }
         }
