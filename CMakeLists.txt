@@ -12,3 +12,8 @@ include(cmake/FetchSolvant.cmake)
 #add_subdirectory(geo)
 add_subdirectory(phys)
 #add_subdirectory(utils)
+
+add_executable(fabrik fabrik.cpp)
+include_directories( ${OPENGL_INCLUDE_DIRS} )
+target_link_libraries(fabrik PUBLIC ${OPENGL_LIBRARIES})
+
