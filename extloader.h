@@ -6,9 +6,19 @@
 
 extern PFNGLBINDBUFFERPROC glBindBuffer;
 extern PFNGLCREATESHADERPROC glCreateShader;
+extern PFNGLATTACHSHADERPROC glAttachShader;
+extern PFNGLLINKPROGRAMPROC glLinkProgram;
+extern PFNGLUSEPROGRAMPROC glUseProgram;
+extern PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray;
+extern PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
+extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
+extern PFNGLGETATTRIBLOCATIONPROC glGetAttribLocation;
+extern PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
+extern PFNGLCREATEPROGRAMPROC glCreateProgram;
+extern PFNGLCOMPILESHADERPROC glCompileShader;
 extern PFNGLSHADERSOURCEPROC glShaderSource;
 extern PFNGLGENBUFFERSPROC glGenBuffers;
-extern PFNGLDELETEBUFFERSPROC glDeleteBuffer;
+extern PFNGLDELETEBUFFERSPROC glDeleteBuffers;
 extern PFNGLBUFFERDATAPROC glBufferData;
 extern PFNGLBUFFERSUBDATAPROC glBufferSubData;
 extern PFNGLMAPBUFFERPROC glMapBuffer;
@@ -16,14 +26,32 @@ extern PFNGLUNMAPBUFFERPROC glUnmapBuffer;
 extern PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
 extern PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
 
-void load_extension_function_pointers() {
+namespace ext {
+void load() {
     const unsigned char* glssp =
         reinterpret_cast<const unsigned char*>("glShaderSource");
     glShaderSource = (PFNGLSHADERSOURCEPROC)glXGetProcAddress(glssp);
 
+    const unsigned char* glcmplsp =
+        reinterpret_cast<const unsigned char*>("glCompileShader");
+    glCompileShader = (PFNGLCOMPILESHADERPROC)glXGetProcAddress(glcmplsp);
+
     const unsigned char* glcsp =
         reinterpret_cast<const unsigned char*>("glCreateShader");
     glCreateShader = (PFNGLCREATESHADERPROC)glXGetProcAddress(glcsp);
+
+    const unsigned char* glasp =
+        reinterpret_cast<const unsigned char*>("glAttachShader");
+    glAttachShader = (PFNGLATTACHSHADERPROC)glXGetProcAddress(glasp);
+
+    const unsigned char* glcspp =
+        reinterpret_cast<const unsigned char*>("glCreateProgram");
+    glCreateProgram = (PFNGLCREATEPROGRAMPROC)glXGetProcAddress(glcsp);
+
+    const unsigned char* glevaap =
+        reinterpret_cast<const unsigned char*>("glEnableVertexAttribArray");
+    glEnableVertexAttribArray =
+        (PFNGLENABLEVERTEXATTRIBARRAYPROC)glXGetProcAddress(glevaap);
 
     const unsigned char* tt =
         reinterpret_cast<const unsigned char*>("glBindBuffer");
@@ -34,8 +62,8 @@ void load_extension_function_pointers() {
     glGenBuffers = (PFNGLGENBUFFERSPROC)glXGetProcAddress(tr);
 
     const unsigned char* tf =
-        reinterpret_cast<const unsigned char*>("glDeleteBuffer");
-    glDeleteBuffer = (PFNGLDELETEBUFFERSPROC)glXGetProcAddress(tf);
+        reinterpret_cast<const unsigned char*>("glDeleteBuffers");
+    glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)glXGetProcAddress(tf);
 
     const unsigned char* ff =
         reinterpret_cast<const unsigned char*>("glBufferData");
@@ -61,3 +89,4 @@ void load_extension_function_pointers() {
         reinterpret_cast<const unsigned char*>("glBufferSubData");
     glBufferSubData = (PFNGLBUFFERSUBDATAPROC)glXGetProcAddress(mvbs);
 }
+}  // namespace ext
