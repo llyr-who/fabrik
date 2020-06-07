@@ -3,9 +3,33 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+
 
 #include "extloader.h"
 #include "linmath.h"
+
+PFNGLBINDBUFFERPROC glBindBuffer;
+PFNGLCREATESHADERPROC glCreateShader;
+PFNGLATTACHSHADERPROC glAttachShader;
+PFNGLLINKPROGRAMPROC glLinkProgram;
+PFNGLUSEPROGRAMPROC glUseProgram;
+PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray;
+PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
+PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
+PFNGLGETATTRIBLOCATIONPROC glGetAttribLocation;
+PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
+PFNGLCREATEPROGRAMPROC glCreateProgram;
+PFNGLCOMPILESHADERPROC glCompileShader;
+PFNGLSHADERSOURCEPROC glShaderSource;
+PFNGLGENBUFFERSPROC glGenBuffers;
+PFNGLDELETEBUFFERSPROC glDeleteBuffers;
+PFNGLBUFFERDATAPROC glBufferData;
+PFNGLBUFFERSUBDATAPROC glBufferSubData;
+PFNGLMAPBUFFERPROC glMapBuffer;
+PFNGLUNMAPBUFFERPROC glUnmapBuffer;
+PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
+PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
 
 static const struct {
     float x, y;
@@ -45,9 +69,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action,
 }
 
 int main(void) {
-
-    ext::load();
-
     GLFWwindow* window;
     GLuint vertex_buffer, vertex_shader, fragment_shader, program;
     GLint mvp_location, vpos_location, vcol_location;
@@ -72,6 +93,7 @@ int main(void) {
 
     // NOTE: OpenGL error checks have been omitted for brevity
 
+    load();
     glGenBuffers(1, &vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -110,12 +132,10 @@ int main(void) {
 
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
-
         mat4x4_identity(m);
         mat4x4_rotate_Z(m, m, (float)glfwGetTime());
         mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
         mat4x4_mul(mvp, p, m);
-
         glUseProgram(program);
         glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*)mvp);
         glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -124,8 +144,10 @@ int main(void) {
         glfwPollEvents();
     }
 
+    std::cout << "complete" << std::endl;
     glfwDestroyWindow(window);
 
     glfwTerminate();
     exit(EXIT_SUCCESS);
+
 }
