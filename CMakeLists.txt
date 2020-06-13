@@ -16,5 +16,5 @@ add_subdirectory(phys)
 
 add_executable(fabrik fabrik.cpp)
 include_directories( ${OPENGL_INCLUDE_DIRS})
-target_link_libraries(fabrik PUBLIC ${OPENGL_LIBRARIES} glfw)
+target_link_libraries(fabrik PUBLIC ${OPENGL_LIBRARIES} glfw phys_lib)
 
